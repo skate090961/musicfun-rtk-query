@@ -1,10 +1,10 @@
 import {Route, type RouteProps, Routes} from "react-router";
 import {routeConfig} from "../config/route-config";
-import {Suspense} from "react";
+import {memo, Suspense, useCallback} from "react";
 
 
-export const Routing = () => {
-    const renderRoute = (el: RouteProps) => {
+export const Routing = memo(() => {
+    const renderRoute = useCallback((el: RouteProps) => {
         return (
             <Route
                 key={el.path}
@@ -16,11 +16,11 @@ export const Routing = () => {
                 )}
             />
         )
-    }
+    }, [])
 
     return (
         <Routes>
             {routeConfig.map(renderRoute)}
         </Routes>
     )
-}
+});
