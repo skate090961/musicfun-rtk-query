@@ -1,0 +1,1 @@
+export {PlaylistsPageAsync as PlaylistsPage} from './ui/playlists-page.async'

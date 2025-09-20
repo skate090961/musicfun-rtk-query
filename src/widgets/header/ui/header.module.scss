@@ -1,0 +1,16 @@
+.root {
+  border-bottom: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  min-height: var(--header-height);
+}
+
+.list {
+  display: flex;
+  gap: 12px;
+}
+
+.activeLink {
+  font-weight: bold;
+}
