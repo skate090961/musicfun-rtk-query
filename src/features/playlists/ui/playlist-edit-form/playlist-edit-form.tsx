@@ -1,11 +1,11 @@
 import {memo} from "react";
 import {type SubmitHandler, useForm} from "react-hook-form";
-import type { UpdatePlaylistBody } from "../../api/playlists-api.types";
+import type { UpdatePlaylistArgs } from "../../api/playlists-api.types";
 
 type PlaylistEditFormProps = {
     className?: string
-    initialData: UpdatePlaylistBody
-    onSubmit: SubmitHandler<UpdatePlaylistBody>
+    initialData: UpdatePlaylistArgs
+    onSubmit: SubmitHandler<UpdatePlaylistArgs>
     onCancel: () => void
 }
 
@@ -17,7 +17,7 @@ export const PlaylistEditForm = memo((props: PlaylistEditFormProps) => {
         onCancel
     } = props
 
-    const { register, handleSubmit } = useForm<UpdatePlaylistBody>({
+    const { register, handleSubmit } = useForm<UpdatePlaylistArgs>({
         defaultValues: initialData
     });
 

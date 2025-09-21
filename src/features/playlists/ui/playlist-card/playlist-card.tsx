@@ -1,8 +1,8 @@
-import type {Tag} from "@/common/types";
+import type {Cover, Tag} from "@/common/types";
 import {memo, useCallback, useMemo, useState} from "react";
 import {useUpdatePlaylistMutation} from "../../api/playlists-api";
 import type {SubmitHandler} from "react-hook-form";
-import type {UpdatePlaylistBody} from "../../api/playlists-api.types";
+import type {UpdatePlaylistArgs} from "../../api/playlists-api.types";
 import s from './playlist-card.module.scss'
 import {PlaylistEditForm} from "../playlist-edit-form/playlist-edit-form";
 import {PlaylistView} from "../playlist-view/playlist-view";
@@ -13,6 +13,7 @@ type PlaylistCardProps = {
     description: string;
     username: string;
     tags: Tag[];
+    images: Cover[];
 }
 
 export const PlaylistCard = memo((props: PlaylistCardProps) => {
@@ -21,7 +22,8 @@ export const PlaylistCard = memo((props: PlaylistCardProps) => {
         title,
         description,
         username,
-        tags
+        tags,
+        images
     } = props
 
     const [isEditing, setIsEditing] = useState(false);
@@ -30,7 +32,7 @@ export const PlaylistCard = memo((props: PlaylistCardProps) => {
 
     const handleToggleEditForm = useCallback(() => setIsEditing(prev => !prev), []);
 
-    const handleSubmitEdit = useCallback<SubmitHandler<UpdatePlaylistBody>>(
+    const handleSubmitEdit = useCallback<SubmitHandler<UpdatePlaylistArgs>>(
         async (body) => {
             try {
                 await updatePlaylist({
@@ -46,7 +48,7 @@ export const PlaylistCard = memo((props: PlaylistCardProps) => {
         [playlistId, handleToggleEditForm, updatePlaylist]
     );
 
-    const initialFormData: UpdatePlaylistBody = useMemo(() => (
+    const initialFormData: UpdatePlaylistArgs = useMemo(() => (
         {
             title,
             description,
@@ -65,6 +67,7 @@ export const PlaylistCard = memo((props: PlaylistCardProps) => {
             ) : (
                 <PlaylistView
                     playlistId={playlistId}
+                    images={images}
                     title={title}
                     description={description}
                     username={username}

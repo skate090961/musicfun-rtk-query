@@ -51,11 +51,6 @@ export type CreatePlaylistArgs = {
 }
 
 export type UpdatePlaylistArgs = {
-    playlistId: string
-    body: UpdatePlaylistBody
-}
-
-export type UpdatePlaylistBody = {
     title?: string
     description?: string
     tagIds?: string[]

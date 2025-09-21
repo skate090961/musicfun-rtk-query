@@ -1,7 +1,7 @@
 import {memo} from "react";
 import {useGetPlaylistsQuery} from "../../api/playlists-api";
 import s from './playlists.module.scss'
-import {PlaylistCard} from "@/features/playlists/ui/playlist-card/playlist-card.tsx";
+import { PlaylistCard } from "../playlist-card/playlist-card";
 
 export const Playlists = memo(() => {
     const {data: playlists} = useGetPlaylistsQuery()
@@ -12,6 +12,7 @@ export const Playlists = memo(() => {
                 <PlaylistCard
                     key={p.id}
                     playlistId={p.id}
+                    images={p.attributes.images.main}
                     title={p.attributes.title}
                     description={p.attributes.description}
                     username={p.attributes.user.name}

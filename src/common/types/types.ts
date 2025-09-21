@@ -12,8 +12,10 @@ export type Images = {
     main: Cover[]
 }
 
+export type CoverType = 'original' | 'medium' | 'thumbnail'
+
 export type Cover = {
-    type: 'original' | 'medium' | 'thumbnail'
+    type: CoverType
     width: number
     height: number
     fileSize: number

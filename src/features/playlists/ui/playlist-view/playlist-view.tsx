@@ -1,5 +1,7 @@
 import {memo} from "react";
-import {useDeletePlaylistMutation} from "@/features/playlists/api/playlists-api.ts";
+import {useDeletePlaylistMutation} from "../../api/playlists-api";
+import {PlaylistUploadCover} from "../playlist-upload-cover/playlist-upload-cover";
+import type {Cover} from "@/common/types";
 
 type PlaylistViewProps = {
     className?: string
@@ -7,6 +9,7 @@ type PlaylistViewProps = {
     title: string
     description: string
     username: string
+    images: Cover[]
     onEdit: () => void
 }
 
@@ -17,6 +20,7 @@ export const PlaylistView = memo((props: PlaylistViewProps) => {
         description,
         username,
         playlistId,
+        images,
         onEdit
     } = props
 
@@ -30,17 +34,12 @@ export const PlaylistView = memo((props: PlaylistViewProps) => {
 
     return (
         <div className={className}>
+            <PlaylistUploadCover playlistId={playlistId} images={images} />
             <h3>title: {title}</h3>
             <p>description: {description}</p>
             <p>username: {username}</p>
-            <div>
-                <button onClick={onDelete}>
-                    Delete
-                </button>
-                <button onClick={onEdit}>
-                    Edit
-                </button>
-            </div>
+            <button onClick={onDelete}>Delete</button>
+            <button onClick={onEdit}>Edit</button>
         </div>
     );
 });
