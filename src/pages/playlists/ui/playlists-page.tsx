@@ -1,5 +1,5 @@
 import {memo} from "react";
-import {Playlists} from "@/features/playlists";
+import {PlaylistCreateForm, Playlists} from "@/features/playlists";
 import s from './playlists-page.module.scss'
 
 const PlaylistsPage = () => {
@@ -7,6 +7,7 @@ const PlaylistsPage = () => {
     return (
         <div className={s.root}>
             <h1>Playlists Page</h1>
+            <PlaylistCreateForm/>
             <Playlists/>
         </div>
     )
