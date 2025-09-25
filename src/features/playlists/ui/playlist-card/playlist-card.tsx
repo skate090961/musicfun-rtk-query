@@ -3,9 +3,9 @@ import {memo, useCallback, useMemo, useState} from "react";
 import {useUpdatePlaylistMutation} from "../../api/playlists-api";
 import type {SubmitHandler} from "react-hook-form";
 import type {UpdatePlaylistArgs} from "../../api/playlists-api.types";
-import s from './playlist-card.module.scss'
 import {PlaylistEditForm} from "../playlist-edit-form/playlist-edit-form";
 import {PlaylistView} from "../playlist-view/playlist-view";
+import {Card} from "@radix-ui/themes";
 
 type PlaylistCardProps = {
     playlistId: string;
@@ -57,7 +57,7 @@ export const PlaylistCard = memo((props: PlaylistCardProps) => {
     ), [description, tags, title]);
 
     return (
-        <article className={s.root}>
+        <Card size={"3"}>
             {isEditing ? (
                 <PlaylistEditForm
                     initialData={initialFormData}
@@ -74,6 +74,6 @@ export const PlaylistCard = memo((props: PlaylistCardProps) => {
                     onEdit={handleToggleEditForm}
                 />
             )}
-        </article>
+        </Card>
     );
 });

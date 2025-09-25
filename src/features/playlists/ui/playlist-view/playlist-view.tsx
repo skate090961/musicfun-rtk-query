@@ -2,6 +2,7 @@ import {memo} from "react";
 import {useDeletePlaylistMutation} from "../../api/playlists-api";
 import {PlaylistUploadCover} from "../playlist-upload-cover/playlist-upload-cover";
 import type {Cover} from "@/common/types";
+import {Box, Button, Flex, Heading, Inset, Text} from "@radix-ui/themes";
 
 type PlaylistViewProps = {
     className?: string
@@ -33,13 +34,17 @@ export const PlaylistView = memo((props: PlaylistViewProps) => {
     };
 
     return (
-        <div className={className}>
-            <PlaylistUploadCover playlistId={playlistId} images={images} />
-            <h3>title: {title}</h3>
-            <p>description: {description}</p>
-            <p>username: {username}</p>
-            <button onClick={onDelete}>Delete</button>
-            <button onClick={onEdit}>Edit</button>
-        </div>
+        <Box className={className}>
+            <Inset clip="padding-box" pb="current">
+                <PlaylistUploadCover playlistId={playlistId} images={images}/>
+            </Inset>
+            <Heading as={'h3'} mt={'3'} color={'violet'} truncate>{title}</Heading>
+            <Text as={'p'} truncate>{description}</Text>
+            <Text as={'p'} truncate>{username}</Text>
+            <Flex gap={'3'} mt={'3'}>
+                <Button variant={'outline'} onClick={onDelete}>Delete</Button>
+                <Button onClick={onEdit}>Edit</Button>
+            </Flex>
+        </Box>
     );
 });

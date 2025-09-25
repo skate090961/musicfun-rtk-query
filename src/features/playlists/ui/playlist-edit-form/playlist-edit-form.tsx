@@ -1,6 +1,7 @@
 import {memo} from "react";
 import {type SubmitHandler, useForm} from "react-hook-form";
-import type { UpdatePlaylistArgs } from "../../api/playlists-api.types";
+import type {UpdatePlaylistArgs} from "../../api/playlists-api.types";
+import {Button, Flex, Heading, TextField} from "@radix-ui/themes";
 
 type PlaylistEditFormProps = {
     className?: string
@@ -17,33 +18,31 @@ export const PlaylistEditForm = memo((props: PlaylistEditFormProps) => {
         onCancel
     } = props
 
-    const { register, handleSubmit } = useForm<UpdatePlaylistArgs>({
+    const {register, handleSubmit} = useForm<UpdatePlaylistArgs>({
         defaultValues: initialData
     });
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={className}>
-            <h3>Edit Playlist</h3>
-            <div>
-                <input
+            <Flex gap={'3'} direction={'column'}>
+                <Heading as={'h3'}>Edit Playlist</Heading>
+                <TextField.Root
                     {...register('title')}
                     placeholder="title"
                 />
-            </div>
-            <div>
-                <input
+                <TextField.Root
                     {...register('description')}
                     placeholder="description"
                 />
-            </div>
-            <div>
-                <button type="submit">
-                    Save
-                </button>
-                <button type="button" onClick={onCancel}>
-                    Cancel
-                </button>
-            </div>
+                <Flex gap={'3'}>
+                    <Button type="submit">
+                        Save
+                    </Button>
+                    <Button type="button" onClick={onCancel}>
+                        Cancel
+                    </Button>
+                </Flex>
+            </Flex>
         </form>
     );
 });

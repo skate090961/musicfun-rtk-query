@@ -1,0 +1,9 @@
+.bg {
+  position: absolute;
+  z-index: var(--background-z-index);
+  left: 0;
+  right: 0;
+  height: 480px;
+  opacity: 0.6;
+  background: linear-gradient(to bottom, var(--accent-4), transparent);
+}

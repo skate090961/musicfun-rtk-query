@@ -1,9 +1,10 @@
 import {memo} from "react";
+import {Container, Heading} from "@radix-ui/themes";
 
 const MainPage = () => {
-    return <div>
-        <h1>Main page</h1>
-    </div>
+    return <Container>
+        <Heading as={'h1'}>Main page</Heading>
+    </Container>
 }
 
 export default memo(MainPage)

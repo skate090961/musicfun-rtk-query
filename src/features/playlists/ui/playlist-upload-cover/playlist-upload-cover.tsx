@@ -1,9 +1,12 @@
 import s from "./playlist-upload-cover.module.scss";
-import {type ChangeEvent, memo, useMemo} from "react";
+import {type ChangeEvent, memo, useMemo, useRef} from "react";
 import DefaultPlaylistCoverImage from "@/assets/images/default-playlist-cover.png";
 import {useDeletePlaylistCoverMutation, useUploadPlaylistCoverMutation} from "../../api/playlists-api";
 import type {Cover, CoverType} from "@/common/types";
 import {toast} from "react-toastify";
+import {Box, IconButton} from "@radix-ui/themes";
+import {TrashIcon, UploadIcon} from "@radix-ui/react-icons";
+import clsx from "clsx";
 
 type PlaylistUploadCoverProps = {
     playlistId: string
@@ -23,6 +26,8 @@ export const PlaylistUploadCover = memo((props: PlaylistUploadCoverProps) => {
         type = 'original'
     } = props
 
+    const fileInputRef = useRef<HTMLInputElement>(null)
+
     const [uploadPlaylistCover] = useUploadPlaylistCoverMutation()
     const [deletePlaylistCover] = useDeletePlaylistCoverMutation()
 
@@ -36,6 +41,9 @@ export const PlaylistUploadCover = memo((props: PlaylistUploadCoverProps) => {
         }
     }, [images, type])
 
+    const handleImageClick = () => {
+        fileInputRef.current?.click()
+    }
 
     const uploadCoverHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.currentTarget.files?.[0]
@@ -48,7 +56,10 @@ export const PlaylistUploadCover = memo((props: PlaylistUploadCoverProps) => {
         }
 
         if (file.size > MAX_SIZE) {
-            toast(`The file is too large. Max size is ${Math.round(MAX_SIZE / 1024)} KB`, {type: 'error', theme: 'colored'})
+            toast(`The file is too large. Max size is ${Math.round(MAX_SIZE / 1024)} KB`, {
+                type: 'error',
+                theme: 'colored'
+            })
             return;
         }
 
@@ -58,19 +69,37 @@ export const PlaylistUploadCover = memo((props: PlaylistUploadCoverProps) => {
         })
     }
 
-    const deleteCoverHandler = () => deletePlaylistCover(playlistId)
+    const deleteCoverHandler = () => {
+        deletePlaylistCover(playlistId)
+    }
 
     return (
-        <div className={className}>
+        <Box className={clsx(s.root, className)}>
             <img
                 className={s.cover}
                 src={cover.src}
                 alt="cover"
             />
-            <div>
-                {cover.type && <button onClick={deleteCoverHandler}>delete cover</button>}
-                <input type="file" onChange={uploadCoverHandler} accept={ALLOWED_UPLOAD_TYPES.join()}/>
-            </div>
-        </div>
+            <IconButton onClick={handleImageClick} className={s.uploadButton}>
+                <UploadIcon width={18} height={18}/>
+            </IconButton>
+
+            {cover.type && (
+                <IconButton
+                    color="crimson"
+                    className={s.deleteButton}
+                    onClick={deleteCoverHandler}
+                >
+                    <TrashIcon width={18} height={18}/>
+                </IconButton>
+            )}
+            <input
+                type="file"
+                onChange={uploadCoverHandler}
+                accept={ALLOWED_UPLOAD_TYPES.join()}
+                ref={fileInputRef}
+                className={s.input}
+            />
+        </Box>
     )
 })
