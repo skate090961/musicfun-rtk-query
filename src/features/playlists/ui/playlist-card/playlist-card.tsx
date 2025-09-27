@@ -23,7 +23,7 @@ export const PlaylistCard = memo((props: PlaylistCardProps) => {
         description,
         username,
         tags,
-        images
+        images,
     } = props
 
     const [isEditing, setIsEditing] = useState(false);
@@ -57,23 +57,23 @@ export const PlaylistCard = memo((props: PlaylistCardProps) => {
     ), [description, tags, title]);
 
     return (
-        <Card size={"3"}>
-            {isEditing ? (
-                <PlaylistEditForm
-                    initialData={initialFormData}
-                    onSubmit={handleSubmitEdit}
-                    onCancel={handleToggleEditForm}
-                />
-            ) : (
-                <PlaylistView
-                    playlistId={playlistId}
-                    images={images}
-                    title={title}
-                    description={description}
-                    username={username}
-                    onEdit={handleToggleEditForm}
-                />
-            )}
-        </Card>
+            <Card size={"3"}>
+                {isEditing ? (
+                    <PlaylistEditForm
+                        initialData={initialFormData}
+                        onSubmit={handleSubmitEdit}
+                        onCancel={handleToggleEditForm}
+                    />
+                ) : (
+                    <PlaylistView
+                        playlistId={playlistId}
+                        images={images}
+                        title={title}
+                        description={description}
+                        username={username}
+                        onEdit={handleToggleEditForm}
+                    />
+                )}
+            </Card>
     );
 });
