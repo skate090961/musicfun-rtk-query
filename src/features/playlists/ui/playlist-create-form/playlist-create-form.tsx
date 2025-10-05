@@ -18,10 +18,10 @@ export const PlaylistCreateForm = () => {
     }
 
     return (
-        <Box maxWidth="240px">
-            <Card>
+        <Box width={'340px'}>
+            <Card size={'3'}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Flex gap={'3'} direction={'column'}>
+                    <Flex gap={'3'} direction={'column'} maxHeight={'100%'}>
                         <Heading as={'h3'}>Create new playlist</Heading>
                         <TextField.Root {...register('title')} placeholder="title"/>
                         <TextField.Root {...register('description')} placeholder="description"/>

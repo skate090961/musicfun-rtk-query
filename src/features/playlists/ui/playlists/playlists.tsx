@@ -1,7 +1,8 @@
 import {memo} from "react";
 import {PlaylistCard} from "../playlist-card/playlist-card";
 import {Flex, Heading, Skeleton} from "@radix-ui/themes";
-import type {PlaylistData} from "@/features/playlists/api/playlists-api.types.ts";
+import type {PlaylistData} from "../../api/playlists-api.types";
+import {PlaylistCreateForm} from "../playlist-create-form/playlist-create-form";
 
 type PlaylistsProps = {
     playlists?: PlaylistData[]
@@ -21,6 +22,7 @@ export const Playlists = memo((props: PlaylistsProps) => {
     return (
         <Flex direction={'column'} gap={'5'} mb={'5'}>
             <Flex gap="5" wrap={"wrap"}>
+                <PlaylistCreateForm/>
                 {isLoading && skeletons}
                 {!playlists?.length && !isLoading && (
                     <Heading as={'h2'} align={'center'}>Playlists not found</Heading>

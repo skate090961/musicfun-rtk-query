@@ -1,26 +1,27 @@
 import {Box, IconButton, TextField} from "@radix-ui/themes";
 import {Cross1Icon, MagnifyingGlassIcon} from "@radix-ui/react-icons";
-import {type ChangeEvent, memo} from "react";
+import {type ChangeEvent, memo, useCallback} from "react";
+import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
+import {useSelector} from "react-redux";
+import { playlistsActions } from "../../model/slices/playlists-slice";
+import { getPlaylistsSearch } from "../../model/selectors/playlists-selectors";
 
-type PlaylistsFilterProps = {
-    search: string
-    onChangeSearch: (search: string) => void
-    onClear: () => void
-}
+export const PlaylistsFilter = memo(() => {
+    const search = useSelector(getPlaylistsSearch)
+    const dispatch = useAppDispatch()
 
-export const PlaylistsFilter = memo((props: PlaylistsFilterProps) => {
-    const {
-        search,
-        onChangeSearch,
-        onClear
-    } = props
+    const onClearSearchHandler = useCallback(() =>
+        dispatch(playlistsActions.updateSearch('')
+        ), [dispatch]
+    )
 
-    const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        onChangeSearch(e.currentTarget.value)
-    }
+    const onChangeSearchHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(playlistsActions.updateSearch(e.currentTarget.value))
+        dispatch(playlistsActions.updateCurrentPage(1))
+    }, [dispatch])
 
     return (
-        <Box>
+        <Box mt={'3'}>
             <TextField.Root
                 placeholder="Search the playlists…"
                 value={search}
@@ -31,7 +32,7 @@ export const PlaylistsFilter = memo((props: PlaylistsFilterProps) => {
                 </TextField.Slot>
                 {!!search.length && (
                     <TextField.Slot>
-                        <IconButton variant="ghost" onClick={onClear}>
+                        <IconButton variant="ghost" onClick={onClearSearchHandler}>
                             <Cross1Icon/>
                         </IconButton>
                     </TextField.Slot>

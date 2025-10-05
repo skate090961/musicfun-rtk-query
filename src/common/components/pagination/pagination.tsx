@@ -6,7 +6,7 @@ type PaginationProps = {
     currentPage: number
     setCurrentPage: (currentPage: number) => void
     pagesCount: number
-    pageSize: string
+    pageSize: number
     changePageSize: (pageSize: string) => void
     justify?: 'center' | 'start' | 'end'
 }
@@ -47,7 +47,7 @@ export const Pagination = memo((props: PaginationProps) => {
         </Flex>
         <Flex align={'center'} gap={'2'}>
             <Text as="label" size={'2'}>Show</Text>
-            <Select.Root value={pageSize} onValueChange={changePageSize}>
+            <Select.Root value={String(pageSize)} onValueChange={changePageSize}>
                 <Select.Trigger/>
                 <Select.Content>
                     <Select.Group>
@@ -55,7 +55,7 @@ export const Pagination = memo((props: PaginationProps) => {
                             <Select.Item
                                 value={String(size)}
                                 key={size}
-                                disabled={size === pageSize}
+                                disabled={size === String(pageSize)}
                             >
                                 {size}
                             </Select.Item>
