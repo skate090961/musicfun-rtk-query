@@ -11,12 +11,10 @@ import type {Images} from "@/common/types";
 export const playlistsApi = baseApi.injectEndpoints({
     endpoints: (build) => ({
         getPlaylists: build.query<PlaylistsResponse, FetchPlaylistsArgs>({
-            query: (params) => {
-                return {
-                    url: `playlists`,
-                    params
-                }
-            },
+            query: (params) => ({
+                url: `playlists`,
+                params
+            }),
             providesTags: ['Playlist']
         }),
         createPlaylist: build.mutation<{data: PlaylistData}, CreatePlaylistArgs>({

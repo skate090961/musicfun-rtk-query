@@ -15,7 +15,7 @@ export const PlaylistsFilter = memo((props: PlaylistsFilterProps) => {
         onClear
     } = props
 
-    const onChangeSearchHandler= (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
         onChangeSearch(e.currentTarget.value)
     }
 
@@ -29,11 +29,13 @@ export const PlaylistsFilter = memo((props: PlaylistsFilterProps) => {
                 <TextField.Slot>
                     <MagnifyingGlassIcon height="16" width="16"/>
                 </TextField.Slot>
-                <TextField.Slot>
-                    <IconButton variant="ghost" onClick={onClear}>
-                        <Cross1Icon/>
-                    </IconButton>
-                </TextField.Slot>
+                {!!search.length && (
+                    <TextField.Slot>
+                        <IconButton variant="ghost" onClick={onClear}>
+                            <Cross1Icon/>
+                        </IconButton>
+                    </TextField.Slot>
+                )}
             </TextField.Root>
         </Box>
     )
